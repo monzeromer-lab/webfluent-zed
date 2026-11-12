@@ -15,7 +15,7 @@ Language support for [WebFluent](https://github.com/monzeromer-lab/WebFluent)
 ## Layout
 
 ```
-editors/zed/
+webfluent-zed/
   extension.toml          manifest: grammar, language server, snippets
   Cargo.toml, src/        the Rust part, compiled to WebAssembly by Zed
   languages/webfluent/
@@ -30,9 +30,10 @@ editors/zed/
   snippets/webfluent.json
 ```
 
-The grammar is not vendored here. `extension.toml` points at this repository
-and a commit, and Zed clones it and compiles
-`editors/tree-sitter-webfluent/src/parser.c` itself.
+The grammar is not vendored here. `extension.toml` points at
+[tree-sitter-webfluent](https://github.com/monzeromer-lab/tree-sitter-webfluent)
+and a commit, and Zed clones it and compiles `webfluent/src/parser.c` and
+`webfluentx/src/parser.c` itself.
 
 ## The language server
 
@@ -74,7 +75,7 @@ You need a Rust toolchain installed through `rustup` (Zed adds the
 `wasm32-wasip2` target itself) and, for the grammar, `git` on your `PATH`.
 
 1. In Zed, open the command palette and run `zed: install dev extension`,
-   then pick this directory (`editors/zed`).
+   then pick this directory.
 2. Open any `.wf` file. Zed compiles the Rust crate and the grammar the first
    time, which takes a minute; after that it is instant.
 3. After changing a query, a snippet or `config.toml`, run
