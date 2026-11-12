@@ -14,4 +14,5 @@ path = "src/webfluent.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
+sha2 = { version = "0.10", default-features = false }
 zed_extension_api = "0.7.0"

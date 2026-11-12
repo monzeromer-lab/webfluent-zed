@@ -39,18 +39,23 @@ and a commit, and Zed clones it and compiles `webfluent/src/parser.c` and
 
 The extension looks for `wf-lsp` in this order and uses the first it finds:
 
-1. `lsp.wf-lsp.binary.path` in your Zed `settings.json`.
+1. `lsp.wf-lsp.binary.path` in your **user** Zed `settings.json` (see below).
 2. A `wf-lsp` on your `PATH` — `cargo install --path crates/wf-lsp` from a
    checkout, or `cargo install --git https://github.com/monzeromer-lab/WebFluent wf-lsp`.
-3. The latest [GitHub release](https://github.com/monzeromer-lab/WebFluent/releases),
-   which it downloads on first use (the status shows in Zed's bottom bar) —
-   and again, into a new `wf-lsp-<version>/` directory, when a newer release
-   is out: restart Zed after a WebFluent release and the server is the new
-   one. Extension 2.0 was cut with wf-lsp 3.0.0.
-4. A copy it downloaded before, when the release lookup fails (offline, or
-   rate-limited), so the editor keeps working without the network.
+3. The [WebFluent release](https://github.com/monzeromer-lab/WebFluent/releases)
+   this version of the extension pins (`SERVER_VERSION` in `src/webfluent.rs`),
+   downloaded on first use (the status shows in Zed's bottom bar). The
+   download is the bare `wf-lsp` executable, and its SHA-256 is checked
+   against the release's `SHA256SUMS` before it is made executable: a
+   download that does not match is deleted, never run. A new server reaches
+   you with a new version of the extension, never because a release was
+   published.
+4. A copy it downloaded and checked before, when the release cannot be
+   reached (offline, or rate-limited), so the editor keeps working without
+   the network.
 
-To pin a binary, or pass it arguments or environment:
+To pin a binary, or pass it arguments or environment, in your user
+settings (`zed: open settings`):
 
 ```json
 {
@@ -68,6 +73,28 @@ To pin a binary, or pass it arguments or environment:
 
 Anything under `lsp.wf-lsp.settings` is forwarded to the server as its
 workspace configuration.
+
+### What a project's settings cannot do
+
+A project you open may carry its own `.zed/settings.json`, and Zed hands an
+extension the user's and the project's settings already merged — the
+extension API (0.7) has no way to ask which file a value came from. A
+project that set `binary.path` to `/bin/sh` and `arguments` to `["-c", …]`
+would otherwise run a command the moment a `.wf` file opened. So:
+
+- When the project's `.zed/settings.json` says anything about
+  `lsp.wf-lsp.binary` — or cannot be read as JSON and mentions `wf-lsp` —
+  the `binary` settings are ignored entirely: path, arguments and
+  environment, yours included, for that project. The server is then found
+  on `PATH` or downloaded as above. A project may still set
+  `lsp.wf-lsp.settings`.
+- `binary.path` must be an absolute path outside the project. A relative
+  path, one with `..`, or one inside the project's folder is ignored, with
+  its arguments and environment.
+
+Zed's extension API cannot hash a file itself, so the extension computes the
+SHA-256 in its own code (the `sha2` crate) over the file it downloaded, and
+only then moves it into place.
 
 ## Developing the extension
 
