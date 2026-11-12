@@ -1,0 +1,23 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # The crate Zed compiles to WebAssembly. Whether the queries compile
+  # against the pinned grammar and the vocabularies agree with the compiler
+  # is checked in the WebFluent repository, which links this one, the
+  # grammar and the compiler together (`just zed-check`).
+  crate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip2
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt -- --check
+      - run: cargo build --target wasm32-wasip2
+      - run: cargo clippy --target wasm32-wasip2 -- -D warnings
