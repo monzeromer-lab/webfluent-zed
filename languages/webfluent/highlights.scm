@@ -40,6 +40,7 @@
 (enum_declaration name: (_) @type.definition)
 (api_declaration name: (_) @type.definition)
 (animation_declaration name: (_) @type.definition)
+(part_declaration name: (_) @type.definition)
 (type_declaration base: (_) @type)
 (const_declaration name: (_) @constant)
 (data_declaration name: (_) @constant)
@@ -91,6 +92,9 @@
 (emit_statement event: (_) @function)
 (use_declaration store: (_) @type)
 
+; `head { meta(…) link(…) script(…) }` — the tags a page adds to its head.
+(head_tag tag: (identifier) @tag)
+
 ; ─── Services, connections and validation ───────────────────────────────
 
 [
@@ -108,6 +112,7 @@
   "stream"
   "channel"
   "peer"
+  "worker"
   "send"
   "receive"
   "try"
@@ -137,6 +142,7 @@
   "click"
   "press"
   "into"
+  "not"
   "match"
 ] @keyword
 

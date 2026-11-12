@@ -9,6 +9,10 @@
   "component" @context
   name: (_) @name) @item
 
+(part_declaration
+  "part" @context
+  name: (_) @name) @item
+
 (store_declaration
   "store" @context
   name: (_) @name) @item
@@ -41,6 +45,7 @@
   name: (_) @name) @item
 
 (data_declaration
+  kind: _ @context
   name: (_) @name) @item
 
 (animation_declaration
@@ -52,7 +57,7 @@
   name: (_) @name) @item
 
 (state_declaration
-  "state" @context
+  ["state" "persist"] @context
   name: (_) @name) @item
 
 (derived_declaration
@@ -64,6 +69,7 @@
   name: (_) @name) @item
 
 (connection_declaration
+  kind: _ @context
   name: (_) @name) @item
 
 (validate_declaration

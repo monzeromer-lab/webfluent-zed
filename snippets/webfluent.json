@@ -309,5 +309,53 @@
       "    $0",
       "}"
     ]
+  },
+  "persist": {
+    "prefix": "persist",
+    "description": "A value kept in the browser across visits",
+    "body": [
+      "persist ${1:name} = ${0:\"\"}"
+    ]
+  },
+  "validate": {
+    "prefix": "validate",
+    "description": "Rules for the value a control binds",
+    "body": [
+      "validate ${1:email} {",
+      "    required",
+      "    ${2:email}",
+      "    $0",
+      "}"
+    ]
+  },
+  "on key": {
+    "prefix": "onkey",
+    "description": "A keyboard shortcut",
+    "body": [
+      "on key(\"${1:mod+k}\") {",
+      "    $0",
+      "}"
+    ]
+  },
+  "api": {
+    "prefix": "api",
+    "description": "A service and its endpoints",
+    "body": [
+      "api ${1:Backend}(base: \"${2:/api}\") {",
+      "    get ${3:items}() -> [${4:Map}]",
+      "    $0",
+      "}"
+    ]
+  },
+  "test": {
+    "prefix": "test",
+    "description": "A test `wf test` runs",
+    "body": [
+      "test \"${1:what it shows}\" {",
+      "    $2",
+      "    expect \"${3:text}\"",
+      "    $0",
+      "}"
+    ]
   }
 }
