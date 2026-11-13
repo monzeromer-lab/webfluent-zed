@@ -39,7 +39,7 @@ const GITHUB_REPO: &str = "monzeromer-lab/WebFluent";
 /// and release the extension, after a compiler release. Never the latest:
 /// whoever could replace the latest release would otherwise choose what
 /// every editor runs on its next start.
-const SERVER_VERSION: &str = "v5.15.0";
+const SERVER_VERSION: &str = "v6.0.0";
 
 struct WebFluentExtension {
     /// The binary a previous call found or downloaded. Re-checked on every
