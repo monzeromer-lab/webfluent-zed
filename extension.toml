@@ -13,14 +13,14 @@ snippets = ["snippets/webfluent.json"]
 # change lands there.
 [grammars.webfluent]
 repository = "https://github.com/monzeromer-lab/tree-sitter-webfluent"
-rev = "ed4b4275e20e5c6e791bcd7a23c4e9f8bd664d10"
+rev = "afc7109b25b4ce45686862cc5b2062e36b026dc4"
 path = "webfluent"
 
 # The indented layout, `.wfx`: the same grammar generated with its layout
 # tokens on, from the same commit.
 [grammars.webfluentx]
 repository = "https://github.com/monzeromer-lab/tree-sitter-webfluent"
-rev = "ed4b4275e20e5c6e791bcd7a23c4e9f8bd664d10"
+rev = "afc7109b25b4ce45686862cc5b2062e36b026dc4"
 path = "webfluentx"
 
 [language_servers.wf-lsp]
