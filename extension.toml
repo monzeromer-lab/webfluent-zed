@@ -13,17 +13,26 @@ snippets = ["snippets/webfluent.json"]
 # change lands there.
 [grammars.webfluent]
 repository = "https://github.com/monzeromer-lab/tree-sitter-webfluent"
-rev = "0dcac1c2e492d904f6f6cdcfe2c05eef112dac08"
+rev = "9ef7485aaacad7216bd342870709da33ba50c128"
 path = "webfluent"
 
 # The indented layout, `.wfx`: the same grammar generated with its layout
 # tokens on, from the same commit.
 [grammars.webfluentx]
 repository = "https://github.com/monzeromer-lab/tree-sitter-webfluent"
-rev = "0dcac1c2e492d904f6f6cdcfe2c05eef112dac08"
+rev = "9ef7485aaacad7216bd342870709da33ba50c128"
 path = "webfluentx"
 
 [language_servers.wf-lsp]
 name = "WebFluent Language Server"
-languages = ["WebFluent", "WebFluent (indented)"]
+# JavaScript too: a project's own scripts under `src/`, where the server
+# says which page uses each function, fades what nothing uses, and renames
+# a function in the pages that call it. It answers nothing for a script
+# that is not a WebFluent project's, and formats none.
+languages = ["WebFluent", "WebFluent (indented)", "JavaScript"]
 code_action_kinds = ["quickfix"]
+
+[language_servers.wf-lsp.language_ids]
+"WebFluent" = "webfluent"
+"WebFluent (indented)" = "webfluent"
+"JavaScript" = "javascript"

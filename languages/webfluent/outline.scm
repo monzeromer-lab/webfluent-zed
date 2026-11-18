@@ -38,7 +38,7 @@
 
 (endpoint
   name: (_) @name
-  parameters: (parameter_list)? @context.extra) @item
+  parameters: (endpoint_parameters)? @context.extra) @item
 
 (const_declaration
   "const" @context
@@ -54,6 +54,22 @@
 
 (test_declaration
   "test" @context
+  name: (_) @name) @item
+
+(example_declaration
+  "example" @context
+  component: (_) @name
+  name: (_) @context.extra) @item
+
+(middleware_declaration
+  "middleware" @context
+  name: (_) @name) @item
+
+(fake_declaration
+  "fake" @context
+  name: (_) @name) @item
+
+(fake_answer
   name: (_) @name) @item
 
 (state_declaration
@@ -79,7 +95,7 @@
 (action_declaration
   "action" @context
   name: (_) @name
-  parameters: (parameter_list) @context.extra) @item
+  parameters: (parameter_list)? @context.extra) @item
 
 (event_declaration
   "event" @context

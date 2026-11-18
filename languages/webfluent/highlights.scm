@@ -30,6 +30,11 @@
   "image"
   "api"
   "from"
+  "middleware"
+  "fake"
+  "examples"
+  "example"
+  "fakes"
 ] @keyword
 
 (page_declaration name: (_) @type.definition)
@@ -44,6 +49,13 @@
 (type_declaration base: (_) @type)
 (const_declaration name: (_) @constant)
 (data_declaration name: (_) @constant)
+(middleware_declaration name: (_) @function.definition)
+(middleware_declaration request: (_) @variable.parameter)
+(middleware_declaration next: (_) @variable.parameter)
+(fake_declaration name: (_) @type.definition)
+(fake_answer name: (_) @function.definition)
+(fake_answer parameter: (_) @variable.parameter)
+(example_declaration component: (_) @type)
 
 (parameter name: (_) @variable.parameter)
 (parameter "_" @punctuation.special)
@@ -120,7 +132,17 @@
   "receive"
   "try"
   "catch"
+  "invalidates"
+  "invalidations"
+  "pagination"
+  "pages"
+  "query"
+  "header"
+  "cookie"
 ] @keyword
+
+; `idempotent`, `streamed` — what an endpoint is.
+(endpoint_marker) @keyword
 
 (endpoint name: (_) @function.definition)
 (api_setting name: (identifier) @property)
@@ -129,6 +151,13 @@
 (connection_declaration name: (_) @variable)
 (validate_declaration name: (_) @variable)
 (validation_rule rule: (identifier) @function.builtin)
+; `required t("form.amount")` — a rule's message, translated.
+(rule_translation "t(" @function.builtin)
+; `users.byId(id)` — an endpoint of one of a service's groups.
+(group_endpoint group: (_) @property)
+(group_endpoint endpoint: (_) @function)
+(group_endpoint argument: (_) @variable.parameter)
+(persist_option name: (identifier) @property)
 
 ; ─── Control flow ───────────────────────────────────────────────────────
 
@@ -147,6 +176,8 @@
   "into"
   "not"
   "match"
+  "focus"
+  "called"
 ] @keyword
 
 (if_let name: (_) @variable)
@@ -248,10 +279,13 @@
 (money) @number
 (duration) @number
 (color) @constant
+(regex) @string.regex
+; `on 4XX` — every status of a class.
+(status_class) @number
 
 ; The types the language brings with it, which a program names like its own.
 ((named_type (component_identifier) @type.builtin)
-  (#match? @type.builtin "^(Date|Time|DateTime|Duration|Money|Url|Email|Color|Uuid|File|Secret)$"))
+  (#match? @type.builtin "^(Date|Time|DateTime|Duration|Money|Url|Email|Color|Uuid|File|Secret|Json)$"))
 (boolean) @boolean
 (null) @constant.builtin
 
@@ -280,6 +314,10 @@
   "!"
   "="
   "=>"
+  "?."
+  ".."
+  "..="
+  "..."
 ] @operator
 
 [
@@ -299,3 +337,6 @@
   "?"
 ] @punctuation.delimiter
 (keyframe_selector) @constant
+
+; The name an example goes by in the gallery: a title, not a value.
+(example_declaration name: (string) @string.special)
